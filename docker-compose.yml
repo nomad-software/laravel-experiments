@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ${PWD}:/app
+            - ./etc/nginx/site.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - app-network
+
+    php:
+        build:
+            context: .
+            dockerfile: ./etc/docker/php.docker
+        container_name: php
+        volumes:
+            - ${PWD}:/app
+        networks:
+            - app-network
+
+    mysql:
+        image: mariadb:latest
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: r00t
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+        # volumes:
+            # - ${PWD}/etc/mysql:/var/lib/mysql
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+COMMAND="php artisan ${@}";
+
+docker exec --interactive --tty --user=gary php sh -c "cd /app && ${COMMAND}"
