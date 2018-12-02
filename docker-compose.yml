@@ -23,7 +23,9 @@ services:
             - app-network
 
     mysql:
-        image: mariadb:latest
+        image: mysql:latest
+        command:
+            - "--default-authentication-plugin=mysql_native_password"
         container_name: mysql
         ports:
             - "3306:3306"
