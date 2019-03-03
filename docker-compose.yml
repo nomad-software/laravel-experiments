@@ -24,6 +24,7 @@ services:
 
     mysql:
         image: mysql:latest
+        # Fix for PHP MySql bug: https://bugs.php.net/bug.php?id=76243
         command:
             - "--default-authentication-plugin=mysql_native_password"
         container_name: mysql
