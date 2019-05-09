@@ -1,4 +1,6 @@
 FROM php:7-fpm
 MAINTAINER Gary Willoughby <dev@nomad.uk.net>
 RUN docker-php-ext-install -j$(nproc) pdo_mysql bcmath sockets \
-    && adduser gary
+    && adduser gary \
+    && apt-get update \
+    && apt-get install -y mysql-client \
